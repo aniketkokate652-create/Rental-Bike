@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Available Bikes</h2>
+
+<div class="row">
+{% for bike in bikes %}
+    <div class="col-md-4">
+        <div class="card mb-4">
+            {% if bike.image_file %}
+                <img src="{{ url_for('static', filename='uploads/' + bike.image_file) }}"
+                     class="card-img-top"
+                     style="height:200px; object-fit:cover;">
+            {% endif %}
+            <div class="card-body">
+                <h5>{{ bike.model_name }}</h5>
+                <p>₹{{ bike.price_per_day }}/day</p>
+                <form method="POST" action="/rent/{{ bike.id }}">
+                    <button class="btn btn-primary">Rent Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}

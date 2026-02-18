@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .hero-section {
+        background: linear-gradient(
+            rgba(0, 0, 0, 0.55),
+            rgba(0, 0, 0, 0.55)
+        ),
+        url("https://images.unsplash.com/photo-1518655048521-f130df041f66");
+        background-size: cover;
+        background-position: center;
+        padding: 90px 30px;
+        border-radius: 18px;
+        color: #ffffff;
+    }
+
+    .hero-section h1 {
+        font-size: 3rem;
+        font-weight: 700;
+    }
+
+    .hero-section .lead {
+        font-size: 1.25rem;
+        margin-bottom: 30px;
+    }
+
+    .search-box {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        margin-top: 40px;
+    }
+
+    .rq-search-heading {
+        font-weight: 600;
+        margin-bottom: 6px;
+        display: block;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .category-option,
+    .rq-form-element {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .rq-btn-primary {
+        background-color: #0d6efd;
+        border-radius: 10px;
+        padding: 12px;
+        font-weight: 600;
+    }
+
+    .offer-box {
+        margin-top: 30px;
+        border-radius: 12px;
+    }
+</style>
+
+<div class="container my-5">
+
+    <!-- Hero Section -->
+    <div class="hero-section text-center">
+        <h1>Welcome to BikeRent</h1>
+        <p class="lead">Affordable, reliable, and flexible bike rentals—anytime, anywhere.</p>
+        <p>Choose your location, schedule, and ride with confidence.</p>
+
+        <!-- Search Box -->
+        <div class="search-box text-start">
+            <form method="post">
+                <div class="row g-3">
+
+                    <div class="col-md-3">
+                        <span class="rq-search-heading">Location</span>
+                        <select name="location" class="category-option">
+                            <option value="">Pick a location</option>
+                            <option value="2">Indore</option>
+                            <option value="1" selected>Pune</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <span class="rq-search-heading">Pick-up</span>
+                        <input type="text" name="start" value="02/08/2026 13:00"
+                               class="rq-form-element datepicker"
+                               placeholder="Pick up date">
+                    </div>
+
+                    <div class="col-md-3">
+                        <span class="rq-search-heading">Return</span>
+                        <input type="text" name="end" value="02/09/2026 13:00"
+                               class="rq-form-element"
+                               placeholder="Return date">
+                    </div>
+
+                    <div class="col-md-3">
+                        <span class="rq-search-heading">Booking Duration</span>
+                        <select name="rent" class="category-option">
+                            <option value="rent">Daily</option>
+                            <option value="rent_3_days">3 Days</option>
+                            <option value="rent_week">Weekly</option>
+                            <option value="rent_month">Monthly</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <a href="/bikes" class="btn rq-btn-primary px-5">Search Bikes</a>   
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        <!-- Offer -->
+        <div class="alert alert-warning offer-box mt-4">
+            <strong>Today's Offer:</strong> {{ offer }}
+        </div>
+        <a href="/bikes" class="btn btn-light btn-lg mt-3">
+            View Available Bikes
+        </a>
+    </div>
+</div>
+
+{% endblock %}
