@@ -64,7 +64,6 @@
 
 <div class="container my-5">
 
-    <!-- Hero Section -->
     <div class="hero-section text-center">
         <h1>Welcome to BikeRent</h1>
         <p class="lead">Affordable, reliable, and flexible bike rentals—anytime, anywhere.</p>
@@ -72,54 +71,58 @@
 
         <!-- Search Box -->
         <div class="search-box text-start">
-            <form method="post">
+            <form method="post" action="/bikes">
                 <div class="row g-3">
 
                     <div class="col-md-3">
                         <span class="rq-search-heading">Location</span>
-                        <select name="location" class="category-option">
+                        <select name="location" class="category-option" required>
                             <option value="">Pick a location</option>
-                            <option value="2">Indore</option>
-                            <option value="1" selected>Pune</option>
+                            <option value="Indore">Indore</option>
+                            <option value="Pune">Pune</option>
                         </select>
                     </div>
 
                     <div class="col-md-3">
                         <span class="rq-search-heading">Pick-up</span>
-                        <input type="text" name="start" value="02/08/2026 13:00"
-                               class="rq-form-element datepicker"
-                               placeholder="Pick up date">
+                        <input type="datetime-local"
+                               name="start"
+                               class="rq-form-element"
+                               required>
                     </div>
 
                     <div class="col-md-3">
                         <span class="rq-search-heading">Return</span>
-                        <input type="text" name="end" value="02/09/2026 13:00"
+                        <input type="datetime-local"
+                               name="end"
                                class="rq-form-element"
-                               placeholder="Return date">
+                               required>
                     </div>
 
                     <div class="col-md-3">
                         <span class="rq-search-heading">Booking Duration</span>
                         <select name="rent" class="category-option">
-                            <option value="rent">Daily</option>
-                            <option value="rent_3_days">3 Days</option>
-                            <option value="rent_week">Weekly</option>
-                            <option value="rent_month">Monthly</option>
+                            <option value="daily">Daily</option>
+                            <option value="3_days">3 Days</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
                         </select>
                     </div>
 
                     <div class="col-12 text-center mt-4">
-                        <a href="/bikes" class="btn rq-btn-primary px-5">Search Bikes</a>   
+                        <button type="submit" class="btn rq-btn-primary px-5">
+                        Search Bikes
+                         </button>
                     </div>
 
                 </div>
             </form>
         </div>
 
-        <!-- Offer -->
         <div class="alert alert-warning offer-box mt-4">
             <strong>Today's Offer:</strong> {{ offer }}
         </div>
+
         <a href="/bikes" class="btn btn-light btn-lg mt-3">
             View Available Bikes
         </a>

@@ -15,7 +15,7 @@
             <div class="card-body">
                 <h5>{{ bike.model_name }}</h5>
                 <p>₹{{ bike.price_per_day }}/day</p>
-                <form method="POST" action="/rent/{{ bike.id }}">
+                <form method="POST" action="{{ url_for('rental.rent_bike', bike_id=bike.id) }}">
                     <button class="btn btn-primary">Rent Now</button>
                 </form>
             </div>
