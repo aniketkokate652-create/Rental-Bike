@@ -7,7 +7,8 @@ from models import db, Bike
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 # Redis connection
-r = redis.Redis(host='localhost', port=6379, decode_responses=True)
+redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379")
+r = redis.from_url(redis_url, decode_responses=True)
 
 UPLOAD_FOLDER = 'static/uploads'
 
