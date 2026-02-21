@@ -10,6 +10,9 @@
         body { background-color: #f8f9fa; }
         .navbar-brand { font-weight: bold; color: #ffc107 !important; }
         .flash-messages { margin-top: 20px; }
+        
+        /* Slight adjustment to align buttons in the navbar */
+        .nav-btn-align { display: flex; align-items: center; }
     </style>
 </head>
 <body>
@@ -31,26 +34,26 @@
                 </li>
             </ul>
             
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto nav-btn-align">
                 {% if session.get('username') %}
-                    <li class="nav-item">
-                        <span class="nav-link text-info">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-info" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Welcome, {{ session.get('username') }}
-                        </span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-outline-danger btn-sm ms-lg-2" href="/logout">
-                            Logout
                         </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="/my-bookings">📋 View My Bookings</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-danger btn-sm" href="/logout">Logout</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-warning btn-sm " href="/register">
-                            Register
-                        </a>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-warning btn-sm mt-1 mt-lg-0" href="/register">Register</a>
                     </li>
                 {% endif %}
             </ul>
@@ -71,7 +74,6 @@
     {% endwith %}
 </div>
 
-<!-- ✅ SINGLE CONTENT BLOCK (CORRECT) -->
 <main class="container py-4">
     {% block content %}{% endblock %}
 </main>
