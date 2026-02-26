@@ -1,108 +1,121 @@
 {% extends "base.html" %}
+
+{% block title %}Dashboard | Riddo{% endblock %}
+
 {% block content %}
+<div class="dashboard-layout">
+    
+    <aside class="sidebar">
+        <div style="margin-bottom: 40px; padding: 0 16px;">
+            <p style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 1px;">Menu</p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="sidebar-link active"><i class="fa-solid fa-chart-line"></i> Overview</a>
+            <a href="/my-bookings" class="sidebar-link"><i class="fa-solid fa-motorcycle"></i> My Rentals</a>
+            
+            <div style="margin: 32px 0 16px 16px;">
+                <p style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 1px;">Admin</p>
+            </div>
+            <a href="#add-bike-section" class="sidebar-link"><i class="fa-solid fa-plus"></i> Add New Bike</a>
+            <a href="#fleet-section" class="sidebar-link"><i class="fa-solid fa-sliders"></i> Fleet Management</a>
+        </nav>
+    </aside>
 
-<h2 class="mb-4">Admin Dashboard</h2>
+    <main class="dashboard-content">
+        <div style="margin-bottom: 40px;">
+            <h1 style="font-size: 2rem; color: var(--primary);">Welcome back, Admin</h1>
+            <p style="color: var(--text-muted);">Here is what's happening with your fleet today.</p>
+        </div>
 
-<!-- Update Offer -->
- <div class="row mb-4">
-    <div class="col-md-3">
-        <div class="card text-center shadow-sm">
-            <div class="card-body">
-                <h6>Total Bikes</h6>
-                <h3>{{ total_bikes }}</h3>
+        <div class="grid-3" style="margin-bottom: 40px;">
+            <div class="stat-card">
+                <div class="icon-wrapper" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; margin-bottom: 0;">
+                    <i class="fa-solid fa-motorcycle"></i>
+                </div>
+                <div class="stat-info">
+                    <p>Total Bikes</p>
+                    <h3>{{ bikes|length }}</h3>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="icon-wrapper" style="background: rgba(34, 197, 94, 0.1); color: var(--accent); margin-bottom: 0;">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <div class="stat-info">
+                    <p>System Status</p>
+                    <h3 style="font-size: 1.2rem; margin-top: 4px; color: var(--accent);">Online</h3>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-3">
-        <div class="card text-center shadow-sm">
-            <div class="card-body">
-                <h6>Available Bikes</h6>
-                <h3 class="text-success">{{ available_bikes }}</h3>
-            </div>
-        </div>
-    </div>
+        <div id="add-bike-section" class="glass-card" style="padding: 32px; margin-bottom: 40px; border-top: 4px solid var(--accent);">
+            <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Add New Bike</h3>
+            <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.9rem;">Upload a new motorcycle to your rental fleet.</p>
+            
+            <form method="POST" action="{{ url_for('admin.add_bike') }}" enctype="multipart/form-data">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                    
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; display: block;">Model Name</label>
+                        <input type="text" name="model_name" class="form-control" placeholder="e.g. Royal Enfield Classic 350" required>
+                    </div>
 
-    <div class="col-md-3">
-        <div class="card text-center shadow-sm">
-            <div class="card-body">
-                <h6>Active Rentals</h6>
-                <h3 class="text-danger">{{ active_rentals }}</h3>
-            </div>
-        </div>
-    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; display: block;">Price Per Day (₹)</label>
+                        <input type="number" name="price" class="form-control" placeholder="e.g. 1500" required>
+                    </div>
+                </div>
 
-    <div class="col-md-3">
-        <div class="card text-center shadow-sm bg-warning">
-            <div class="card-body">
-                <h6>Current Offer</h6>
-                <p class="fw-bold">{{ offer }}</p>
-            </div>
-        </div>
-    </div>
-</div>
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; display: block;">Bike Image</label>
+                    <input type="file" name="image" class="form-control" accept="image/png, image/jpeg, image/jpg" style="background: white; padding: 12px;" required>
+                </div>
 
-<div class="card mb-4">
-  <div class="card-header bg-warning">
-    <strong>Update Offer</strong>
-  </div>
-  <div class="card-body">
-    <form method="POST" action="/admin/update-offer">
-      <input type="text" name="offer" class="form-control mb-2" value="{{ offer }}" required>
-      <button class="btn btn-warning">Update Offer</button>
-    </form>
-  </div>
-</div>
-
-<!-- Add Bike -->
-<div class="card mb-4">
-  <div class="card-header bg-success text-white">
-    <strong>Add Bike</strong>
-  </div>
-  <div class="card-body">
-    <form method="POST" action="/admin/add-bike" enctype="multipart/form-data">
-      <input type="text" name="model_name" class="form-control mb-2" placeholder="Bike Model" required>
-      <input type="number" name="price" class="form-control mb-2" placeholder="Price per day" required>
-      <input type="file" name="image" class="form-control mb-2">
-      <button class="btn btn-success">Add Bike</button>
-    </form>
-  </div>
-</div>
-
-<!-- Bike List -->
-<div class="card">
-  <div class="card-header bg-dark text-white">
-    <strong>All Bikes</strong>
-  </div>
-
-  <div class="card-body">
-    {% for bike in bikes %}
-      <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-
-        <!-- Bike Name -->
-        <span>{{ bike.model_name }}</span>
-
-        <!-- Status + Action (RIGHT SIDE) -->
-        <div class="d-flex align-items-center gap-2">
-
-  
-
-            <!-- Make Available -->
-            <form method="POST"action="{{ url_for('admin.make_bike_available', bike_id=bike.id) }}">
-              
-              <button type="submit" class="btn btn-sm btn-success">
-
-                {% if bike.is_available %}{% endif %}>
-                {{ 'Available' if bike.is_available else 'Rented' }}
-              </button>
-              
+                <div style="text-align: right;">
+                    <button type="submit" class="btn btn-accent"><i class="fa-solid fa-cloud-arrow-up" style="margin-right: 8px;"></i> Publish Bike</button>
+                </div>
             </form>
-
         </div>
-      </div>
-    {% endfor %}
-  </div>
+
+        <div id="fleet-section" class="glass-card" style="padding: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h3 style="font-size: 1.25rem; margin-bottom: 0;">Current Fleet</h3>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                {% for bike in bikes %}
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border: 1px solid #e2e8f0; border-radius: 12px;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div style="width: 48px; height: 48px; background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                            {% if bike.image_file %}
+                                <img src="{{ url_for('static', filename='uploads/' + bike.image_file) }}" alt="Bike" style="width: 100%; height: 100%; object-fit: cover;">
+                            {% else %}
+                                <i class="fa-solid fa-motorcycle" style="color: var(--text-muted);"></i>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.05rem; margin-bottom: 4px;">{{ bike.model_name }}</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">ID: #{{ bike.id }} | ₹{{ bike.price_per_day }}/day</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 24px;">
+                                    <form method="POST"action="{{ url_for('admin.make_bike_available', bike_id=bike.id) }}">
+              
+                                      <button type="submit" class="btn btn-sm btn-success">
+
+                                      {% if bike.is_available %}{% endif %}>
+                                      {{ 'Available' if bike.is_available else 'Rented' }}
+                                      </button>
+              
+                                     </form>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
 </div>
-
-
 {% endblock %}

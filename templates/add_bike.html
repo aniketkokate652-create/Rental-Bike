@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Bike | Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    
+    <aside class="sidebar">
+        <div style="margin-bottom: 40px; padding: 0 16px;">
+            <p style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 1px;">Menu</p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="sidebar-link"><i class="fa-solid fa-chart-line"></i> Overview</a>
+            
+            <div style="margin: 32px 0 16px 16px;">
+                <p style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 1px;">Admin</p>
+            </div>
+            <a href="#" class="sidebar-link active"><i class="fa-solid fa-plus"></i> Add New Bike</a>
+            <a href="#" class="sidebar-link"><i class="fa-solid fa-sliders"></i> Fleet Management</a>
+        </nav>
+    </aside>
+
+    <main class="dashboard-content">
+        <div style="margin-bottom: 40px; display: flex; align-items: center; gap: 16px;">
+            <a href="/dashboard" class="btn btn-outline" style="padding: 8px 16px; border-radius: 8px;"><i class="fa-solid fa-arrow-left"></i></a>
+            <div>
+                <h1 style="font-size: 2rem; color: var(--primary);">Add New Bike to Fleet</h1>
+                <p style="color: var(--text-muted);">Enter the details below to list a new motorcycle.</p>
+            </div>
+        </div>
+
+        <div class="glass-card" style="max-width: 700px; padding: 40px;">
+            <form method="POST" action="{{ url_for('admin.add_bike') }}" enctype="multipart/form-data">
+                
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; display: block;">Motorcycle Model Name</label>
+                    <input type="text" name="model_name" class="form-control" placeholder="e.g. Royal Enfield Classic 350" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; display: block;">Price Per Day (₹)</label>
+                    <input type="number" name="price_per_day" class="form-control" placeholder="e.g. 1500" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 32px;">
+                    <label style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; display: block;">Bike Image</label>
+                    <div style="border: 2px dashed #cbd5e1; padding: 32px; text-align: center; border-radius: 12px; background: #f8fafc;">
+                        <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 16px;"></i>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px;">Upload a high-quality image of the bike.</p>
+                        <input type="file" name="image" class="form-control" accept="image/png, image/jpeg, image/jpg" style="background: white;" required>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 16px; justify-content: flex-end;">
+                    <a href="/dashboard" class="btn btn-outline">Cancel</a>
+                    <button type="submit" class="btn btn-accent"><i class="fa-solid fa-plus" style="margin-right: 8px;"></i> Publish Bike</button>
+                </div>
+
+            </form>
+        </div>
+    </main>
+</div>
+{% endblock %}

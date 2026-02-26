@@ -1,32 +1,45 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container mt-5">
-    <h3>My Bookings</h3>
+<div class="container section-padding" style="padding-top: 120px; max-width: 900px;">
+    <h2 class="section-title" style="margin-bottom: 40px;">My Bookings</h2>
 
     {% if bookings %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Bike ID</th>
-                    <th>Price</th>
-                    <th>Payment</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for b in bookings %}
-                <tr>
-                    <td>{{ b.bike_id }}</td>
-                    <td>₹{{ b.total_price }}</td>
-                    <td>{{ b.payment_method }}</td>
-                    <td>{{ b.payment_status }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+            {% for b in bookings %}
+            <div class="glass-card" style="padding: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="width: 56px; height: 56px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                        <i class="fa-solid fa-file-invoice"></i>
+                    </div>
+                    <div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">Booking ID: #{{ b.bike_id }}</p>
+                        <h4 style="font-size: 1.1rem; color: var(--primary);">₹{{ b.total_price }}</h4>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 40px; align-items: center;">
+                    <div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">Method</p>
+                        <p style="font-weight: 600;">{{ b.payment_method }}</p>
+                    </div>
+                    <div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">Status</p>
+                        <span class="badge badge-available" style="padding: 8px 16px;">{{ b.payment_status }}</span>
+                    </div>
+                </div>
+                
+            </div>
+            {% endfor %}
+        </div>
     {% else %}
-        <p>No bookings found.</p>
+        <div class="glass-card text-center" style="padding: 60px 20px;">
+            <i class="fa-regular fa-folder-open" style="font-size: 3rem; color: #cbd5e1; margin-bottom: 16px;"></i>
+            <h3 style="color: var(--primary); margin-bottom: 8px;">No bookings found</h3>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">You haven't rented any bikes yet.</p>
+            <a href="/bikes" class="btn btn-accent">Explore Fleet</a>
+        </div>
     {% endif %}
 </div>
 

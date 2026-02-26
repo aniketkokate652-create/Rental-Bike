@@ -1,132 +1,51 @@
 {% extends "base.html" %}
+
 {% block content %}
-
-<style>
-    .hero-section {
-        background: linear-gradient(
-            rgba(0, 0, 0, 0.55),
-            rgba(0, 0, 0, 0.55)
-        ),
-        url("https://images.unsplash.com/photo-1518655048521-f130df041f66");
-        background-size: cover;
-        background-position: center;
-        padding: 90px 30px;
-        border-radius: 18px;
-        color: #ffffff;
-    }
-
-    .hero-section h1 {
-        font-size: 3rem;
-        font-weight: 700;
-    }
-
-    .hero-section .lead {
-        font-size: 1.25rem;
-        margin-bottom: 30px;
-    }
-
-    .search-box {
-        background: #ffffff;
-        border-radius: 16px;
-        padding: 30px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        margin-top: 40px;
-    }
-
-    .rq-search-heading {
-        font-weight: 600;
-        margin-bottom: 6px;
-        display: block;
-        font-size: 14px;
-        color: #333;
-    }
-
-    .category-option,
-    .rq-form-element {
-        width: 100%;
-        padding: 10px 12px;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-    }
-
-    .rq-btn-primary {
-        background-color: #0d6efd;
-        border-radius: 10px;
-        padding: 12px;
-        font-weight: 600;
-    }
-
-    .offer-box {
-        margin-top: 30px;
-        border-radius: 12px;
-    }
-</style>
-
-<div class="container my-5">
-
-    <div class="hero-section text-center">
-        <h1>Welcome to BikeRent</h1>
-        <p class="lead">Affordable, reliable, and flexible bike rentals—anytime, anywhere.</p>
-        <p>Choose your location, schedule, and ride with confidence.</p>
-
-        <!-- Search Box -->
-        <div class="search-box text-start">
-            <form method="post" action="/bikes">
-                <div class="row g-3">
-
-                    <div class="col-md-3">
-                        <span class="rq-search-heading">Location</span>
-                        <select name="location" class="category-option" required>
-                            <option value="">Pick a location</option>
-                            <option value="Indore">Indore</option>
-                            <option value="Pune">Pune</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-3">
-                        <span class="rq-search-heading">Pick-up</span>
-                        <input type="datetime-local"
-                               name="start"
-                               class="rq-form-element"
-                               required>
-                    </div>
-
-                    <div class="col-md-3">
-                        <span class="rq-search-heading">Return</span>
-                        <input type="datetime-local"
-                               name="end"
-                               class="rq-form-element"
-                               required>
-                    </div>
-
-                    <div class="col-md-3">
-                        <span class="rq-search-heading">Booking Duration</span>
-                        <select name="rent" class="category-option">
-                            <option value="daily">Daily</option>
-                            <option value="3_days">3 Days</option>
-                            <option value="weekly">Weekly</option>
-                            <option value="monthly">Monthly</option>
-                        </select>
-                    </div>
-
-                    <div class="col-12 text-center mt-4">
-                        <button type="submit" class="btn rq-btn-primary px-5">
-                        Search Bikes
-                         </button>
-                    </div>
-
-                </div>
-            </form>
+<section class="hero">
+    <img src="{{ url_for('static', filename='images/hero-bike.jpg') }}" alt="Person riding a motorcycle" class="hero-img-bg">
+    
+    <div class="hero-content">
+        <h1 class="hero-title">Ride Your Freedom with <span class="text-gradient">Riddo</span></h1>
+        <p class="hero-subtitle">Premium motorcycles available on-demand. Experience the thrill of the open road with zero hassle and maximum style.</p>
+        <div class="hero-buttons">
+            <a href="/login" class="btn btn-accent">Book a Ride <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="/bikes" class="btn btn-outline" style="color: white; border-color: white;">Explore Bikes</a>
         </div>
-
-        <div class="alert alert-warning offer-box mt-4">
-            <strong>Today's Offer:</strong> {{ offer }}
-        </div>
-
-        <a href="/bikes" class="btn btn-light btn-lg mt-3">
-            View Available Bikes
-        </a>
     </div>
-</div>
+</section>
 
+<section class="section-padding container">
+    <div class="text-center">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Get on the road in three simple steps</p>
+    </div>
+    
+    <div class="grid-3">
+        <div class="glass-card">
+            <div class="icon-wrapper"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            <h3 style="margin-bottom: 12px;">1. Browse & Book</h3>
+            <p style="color: var(--text-muted);">Choose from our premium fleet of maintained motorcycles and select your dates instantly.</p>
+        </div>
+        
+        <div class="glass-card">
+            <div class="icon-wrapper"><i class="fa-solid fa-key"></i></div>
+            <h3 style="margin-bottom: 12px;">2. Pick Up Keys</h3>
+            <p style="color: var(--text-muted);">Head to your selected location, verify your details, and grab the keys to your ride.</p>
+        </div>
+        
+        <div class="glass-card">
+            <div class="icon-wrapper"><i class="fa-solid fa-motorcycle"></i></div>
+            <h3 style="margin-bottom: 12px;">3. Ride Free</h3>
+            <p style="color: var(--text-muted);">Enjoy the open road with unlimited miles and our 24/7 roadside assistance guarantee.</p>
+        </div>
+    </div>
+</section>
+
+<section style="background: var(--primary); color: white; padding: 80px 0; text-align: center;">
+    <div class="container">
+        <h2 style="font-size: 2.5rem; margin-bottom: 24px;">Ready for your next adventure?</h2>
+        <p style="opacity: 0.8; margin-bottom: 32px; font-size: 1.1rem;">Join thousands of riders who choose Riddo for their daily commutes and weekend escapes.</p>
+        <a href="/register" class="btn btn-accent" style="padding: 16px 40px; font-size: 1.1rem;">Create Free Account</a>
+    </div>
+</section>
 {% endblock %}

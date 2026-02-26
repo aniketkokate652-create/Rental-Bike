@@ -1,24 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6 text-center">
-        <div class="card shadow">
-            <div class="card-header bg-success text-white"><h4>Step 2: Payment</h4></div>
-            <div class="card-body">
-                <h3>Amount to Pay: ₹{{ bike.price_per_day }}</h3>
-                <form method="POST">
-                    <div class="mb-3">
-                        <label class="form-label">Payment Method</label>
-                        <select name="payment_method" class="form-control" required>
-                            <option value="Credit Card">Credit Card</option>
-                            <option value="UPI">UPI</option>
-                            <option value="Cash">Cash on Pickup</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-success btn-lg w-100">Confirm Payment</button>
-                </form>
+<div class="auth-wrapper" style="padding-top: 120px;">
+    <div class="auth-card" style="max-width: 500px;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; border-bottom: 1px solid #e2e8f0; padding-bottom: 24px;">
+            <div>
+                <p style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 1px; margin-bottom: 4px;">Step 2 of 2</p>
+                <h3 style="font-size: 1.5rem; color: var(--primary);">Payment</h3>
+            </div>
+            <div style="text-align: right;">
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">Total Amount</p>
+                <h2 style="font-weight: 800; color: var(--primary);">₹{{ bike.price_per_day }}</h2>
             </div>
         </div>
+        
+        <form method="POST">
+            <div style="margin-bottom: 24px;">
+                <label style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 12px; display: block;">Select Payment Method</label>
+                <select name="payment_method" class="form-control" style="padding: 16px;" required>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="UPI">UPI</option>
+                    <option value="Cash">Cash on Pickup</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-accent" style="width: 100%; padding: 16px; font-size: 1.1rem;">Confirm Payment <i class="fa-solid fa-lock" style="margin-left: 8px;"></i></button>
+        </form>
     </div>
 </div>
 {% endblock %}
