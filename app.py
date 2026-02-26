@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_migrate import Migrate
-import click
+import click, os, redis
 from flask.cli import with_appcontext
 
 from models import db, User
@@ -10,6 +10,10 @@ from admin_bp import admin_bp
 from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
+# ---------------- REDIS SETUP ----------------
+# Checks Render for a REDIS_URL, falls back to localhost for VS Code
+redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379")
+redis_client = redis.Redis.from_url(redis_url)
 
 # ---------------- CONFIG ----------------
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project.db'
