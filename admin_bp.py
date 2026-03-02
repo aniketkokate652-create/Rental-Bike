@@ -3,7 +3,7 @@ from werkzeug.utils import secure_filename
 import os
 import redis
 from models import db, Bike
-
+from flask_login import current_user, login_required
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 # Redis connection

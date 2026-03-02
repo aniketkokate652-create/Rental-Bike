@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from models import db, User
 from werkzeug.security import check_password_hash, generate_password_hash
-
+from flask_login import login_user
+from flask_login import logout_user
 auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
@@ -44,8 +45,10 @@ def login():
         user = User.query.filter_by(username=username).first()
 
         if user and check_password_hash(user.password, password):
-            session['user_id'] = user.id
-            session['username'] = user.username
+            # This is the missing piece!
+            login_user(user) 
+            
+            # Keep these if you use them in templates, but login_user handles the rest
             session['is_admin'] = user.is_admin
 
             if user.is_admin:
@@ -53,11 +56,11 @@ def login():
             return redirect(url_for('home'))
 
         flash("Invalid credentials", "danger")
-
     return render_template('login.html')
 
 @auth_bp.route('/logout')
 def logout():
+    logout_user() # Use Flask-Login to clear the user
     session.clear()
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))

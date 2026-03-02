@@ -1,13 +1,12 @@
 from flask import Flask, render_template
 from flask_migrate import Migrate
-import click
+import click, os, redis
 from flask.cli import with_appcontext
-
-from models import db, User
-from auth_bp import auth_bp
-from rental_bp import rental_bp
-from admin_bp import admin_bp
+from flask_login import LoginManager
 from werkzeug.security import generate_password_hash
+
+# 1. Import db and User first
+from models import db, User
 
 app = Flask(__name__)
 
@@ -21,10 +20,31 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 db.init_app(app)
 migrate = Migrate(app, db)
 
+# 2. Setup Login Manager before Blueprints
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'auth.login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+# 3. Import Blueprints HERE (Delayed Import to prevent Circular Errors)
+from auth_bp import auth_bp
+from rental_bp import rental_bp
+from admin_bp import admin_bp
+
+# ---------------- REDIS SETUP ----------------
+redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379")
+try:
+    redis_client = redis.Redis.from_url(redis_url)
+except Exception as e:
+    print(f"Redis not connected: {e}")
+
 # ---------------- BLUEPRINTS ----------------
 app.register_blueprint(auth_bp)
-app.register_blueprint(rental_bp)
 app.register_blueprint(admin_bp)
+app.register_blueprint(rental_bp, url_prefix='/rental')
 
 # ---------------- CLI SUPERUSER ----------------
 @app.cli.command("createsuperuser")
@@ -55,4 +75,7 @@ def home():
     return render_template("index.html")
 
 if __name__ == "__main__":
+    # Ensure upload folder exists
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
     app.run(debug=True)

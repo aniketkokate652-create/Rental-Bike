@@ -14,12 +14,18 @@
                         <i class="fa-solid fa-file-invoice"></i>
                     </div>
                     <div>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">Booking ID: #{{ b.bike_id }}</p>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">Booking ID: #{{ b.id }}</p>
                         <h4 style="font-size: 1.1rem; color: var(--primary);">₹{{ b.total_price }}</h4>
                     </div>
                 </div>
 
                 <div style="display: flex; gap: 40px; align-items: center;">
+                    <div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">Rental Period</p>
+                        <p style="font-weight: 600; font-size: 0.9rem;">
+                            {{ b.start_date.strftime('%d %b') }} - {{ b.end_date.strftime('%d %b, %Y') }}
+                        </p>
+                    </div>
                     <div>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">Method</p>
                         <p style="font-weight: 600;">{{ b.payment_method }}</p>

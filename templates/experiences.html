@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="background: #0f0f0f; min-height: 100vh; padding-top: 100px;">
+    <div class="container" style="max-width: 800px; margin: 0 auto;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding: 0 20px;">
+            <h1 style="color: white; font-size: 2.2rem;">
+                Riding <span style="color: #ff4e50;">Stories</span><br>
+                <span style="font-size: 1.1rem; font-weight: normal;">
+                    Share your riding stories and get <span style="color: #ff4e50; font-weight: bold;">Exclusive Discounts</span>
+                </span>
+            </h1>
+            
+            {% if current_user.is_authenticated %}
+                <button onclick="document.getElementById('uploadModal').style.display='flex'" style="background: #ff4e50; color: white; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s;">
+                    + Share Your Ride
+                </button>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}" style="background: rgba(255,255,255,0.1); color: #fff; text-decoration: none; padding: 12px 25px; border-radius: 12px; font-weight: 700; border: 1px solid #444;">
+                    Log in to Post
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="feed" style="display: flex; flex-direction: column; gap: 30px; padding-bottom: 50px;">
+            {% for exp in experiences %}
+            <div class="story-card" style="background: #161616; border: 1px solid #333; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                
+                <div style="padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 35px; height: 35px; background: #ff4e50; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 0.8rem;">
+                            {{ exp.user.username[0].upper() }}
+                        </div>
+                        <span style="color: white; font-weight: 600; font-size: 0.9rem;">{{ exp.user.username }}</span>
+                    </div>
+
+                    {% if current_user.is_authenticated and exp.user_id == current_user.id %}
+                    <form action="{{ url_for('rental.delete_experience', exp_id=exp.id) }}" method="POST" onsubmit="return confirm('Delete this story permanently?')">
+                        <button type="submit" style="background: none; border: none; color: #666; cursor: pointer; transition: 0.3s;">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+                
+                <img src="{{ url_for('static', filename='uploads/' + exp.image_file) }}" style="width: 100%; height: 500px; object-fit: cover; display: block;">
+                
+                <div style="padding: 20px;">
+                    <p style="color: #eee; line-height: 1.6; margin-bottom: 10px;">{{ exp.caption }}</p>
+                    <small style="color: #666;">{{ exp.date_posted.strftime('%d %b, %Y') }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div id="uploadModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center;">
+    <div style="background: #1a1a1a; width: 90%; max-width: 500px; padding: 30px; border-radius: 20px; position: relative;">
+        <button onclick="document.getElementById('uploadModal').style.display='none'" style="position: absolute; right: 20px; top: 20px; background: none; border: none; color: #666; font-size: 1.5rem; cursor: pointer;">&times;</button>
+        <h2 style="color: white; margin-bottom: 20px;">Share Experience</h2>
+        <form action="{{ url_for('rental.upload_experience') }}" method="POST" enctype="multipart/form-data">
+            <label style="color: #888; display: block; margin-bottom: 10px; font-size: 0.8rem;">Select Photo</label>
+            <input type="file" name="image" required style="color: #aaa; margin-bottom: 20px; width: 100%;">
+            
+            <textarea name="caption" placeholder="Tell us about your ride..." required style="width: 100%; height: 100px; background: #222; border: 1px solid #444; border-radius: 10px; color: white; padding: 15px; margin-bottom: 20px; outline: none; font-family: inherit; resize: none;"></textarea>
+            
+            <button type="submit" style="width: 100%; background: #ff4e50; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: 700; cursor: pointer;">Post Story</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,51 +1,330 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="hero">
-    <img src="{{ url_for('static', filename='images/hero-bike.jpg') }}" alt="Person riding a motorcycle" class="hero-img-bg">
-    
-    <div class="hero-content">
-        <h1 class="hero-title">Ride Your Freedom with <span class="text-gradient">Riddo</span></h1>
-        <p class="hero-subtitle">Premium motorcycles available on-demand. Experience the thrill of the open road with zero hassle and maximum style.</p>
-        <div class="hero-buttons">
-            <a href="/login" class="btn btn-accent">Book a Ride <i class="fa-solid fa-arrow-right"></i></a>
-            <a href="/bikes" class="btn btn-outline" style="color: white; border-color: white;">Explore Bikes</a>
-        </div>
-    </div>
-</section>
+<div style="height: 80px; background: #0f0f0f;"></div>
 
-<section class="section-padding container">
-    <div class="text-center">
-        <h2 class="section-title">How It Works</h2>
-        <p class="section-subtitle">Get on the road in three simple steps</p>
-    </div>
-    
-    <div class="grid-3">
-        <div class="glass-card">
-            <div class="icon-wrapper"><i class="fa-solid fa-mobile-screen-button"></i></div>
-            <h3 style="margin-bottom: 12px;">1. Browse & Book</h3>
-            <p style="color: var(--text-muted);">Choose from our premium fleet of maintained motorcycles and select your dates instantly.</p>
-        </div>
-        
-        <div class="glass-card">
-            <div class="icon-wrapper"><i class="fa-solid fa-key"></i></div>
-            <h3 style="margin-bottom: 12px;">2. Pick Up Keys</h3>
-            <p style="color: var(--text-muted);">Head to your selected location, verify your details, and grab the keys to your ride.</p>
-        </div>
-        
-        <div class="glass-card">
-            <div class="icon-wrapper"><i class="fa-solid fa-motorcycle"></i></div>
-            <h3 style="margin-bottom: 12px;">3. Ride Free</h3>
-            <p style="color: var(--text-muted);">Enjoy the open road with unlimited miles and our 24/7 roadside assistance guarantee.</p>
-        </div>
-    </div>
-</section>
-
-<section style="background: var(--primary); color: white; padding: 80px 0; text-align: center;">
+<section class="hero-section" style="padding-bottom: 80px; background: #0f0f0f; color: #fff;">
     <div class="container">
-        <h2 style="font-size: 2.5rem; margin-bottom: 24px;">Ready for your next adventure?</h2>
-        <p style="opacity: 0.8; margin-bottom: 32px; font-size: 1.1rem;">Join thousands of riders who choose Riddo for their daily commutes and weekend escapes.</p>
-        <a href="/register" class="btn btn-accent" style="padding: 16px 40px; font-size: 1.1rem;">Create Free Account</a>
+        <div class="hero-content-wrapper" style="padding: 40px 0; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 40px;">
+            
+            <div class="text-area">
+                <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; line-height: 1.1; color: #fff;">
+                    Ride Your Freedom with <span style="background: linear-gradient(90deg, #ff4e50, #f9d423); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Riddo</span>
+                </h1>
+                <p style="font-size: 1.2rem; color: #aaa; max-width: 650px; margin: 0 auto; line-height: 1.6;">
+                    Premium motorcycles available on-demand. Experience the thrill of the open road with <span style="color: #fff; font-weight: 600;">zero hassle</span> and <span style="color: #fff; font-weight: 600;">maximum style</span>.
+                </p>
+            </div>
+            <div id="offerPopup" style="display: none; position: fixed; top: 20px; right: 20px; width: 320px; background: rgba(22, 22, 22, 0.95); backdrop-filter: blur(10px); border: 1px solid #333; border-radius: 15px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1000;">
+                <button onclick="closePopup()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: #666; cursor: pointer; font-size: 1.2rem;">&times;</button>
+                
+                <div style="text-align: center;">
+                    <div style="background: #ff4e50; color: white; display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; margin-bottom: 15px; text-transform: uppercase;">Exclusive Deals</div>
+                    
+                    <h3 style="color: white; margin: 5px 0; font-size: 1.4rem;">50% OFF</h3>
+                    <p style="color: #bbb; font-size: 0.9rem; margin-bottom: 10px;">On your <span style="color: #ff4e50; font-weight: bold;">First Booking</span></p>
+                    
+                    <hr style="border: 0; border-top: 1px solid #333; margin: 15px 0;">
+
+                    <h3 style="color: white; margin: 5px 0; font-size: 1.4rem;">20% OFF</h3>
+                    <p style="color: #bbb; font-size: 0.9rem; margin-bottom: 20px;">On every <span style="color: #ff4e50; font-weight: bold;">Online Booking</span></p>
+                    
+                    <a href="{{ url_for('auth.login') }}" style="display: block; background: #ff4e50; color: white; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: 700; transition: 0.3s; text-align: center;">
+                        BOOK NOW
+                    </a>
+                </div>
+            </div>
+            
+
+            <div class="hero-bezel" style="
+                background: #0a0a0a; 
+                border-radius: 24px; 
+                overflow: hidden; 
+                border: 1px solid rgba(255, 255, 255, 0.1); 
+                box-shadow: 0 40px 100px rgba(0,0,0,0.7); 
+                position: relative; 
+                width: 100%; 
+                max-width: 1300px; 
+                height: 500px;
+                margin: 0 auto;
+            ">
+                <div style="
+                    position: absolute; 
+                    top: 0; left: 0; width: 100%; height: 100%; 
+                    background: linear-gradient(to bottom, rgba(15, 15, 15, 0) 70%, rgba(15, 15, 15, 0.9) 100%); 
+                    z-index: 2; 
+                    pointer-events: none;
+                "></div>
+
+                <div class="slider-track" style="display: flex; width: 100%; height: 100%;">
+                    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                        <img src="{{ url_for('static', filename='images/motorcycle-options.jpg') }}" 
+                            style="
+                                width: 100%; 
+                                height: 100%; 
+                                display: block; 
+                                object-fit: cover; 
+                                object-position: center 25%; 
+                                transition: transform 0.5s ease;
+                            "
+                            onmouseover="this.style.transform='scale(1.03)'" 
+                            onmouseout="this.style.transform='scale(1)'">
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-container" style="width: 100%; max-width: 1100px; background: #161616; padding: 30px; border-radius: 20px; border: 1px solid #333; position: relative;">
+                <form action="{{ url_for('rental.list_bikes') }}" method="GET">
+                    <div class="input-group" style="position: relative; text-align: left;">
+                        <label style="display: block; color: #ff4e50; font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase;">Search Bike</label>
+                        
+                        <input type="text" id="bike-search" name="q" autocomplete="off" placeholder="Enter bike name (e.g. Ninja, Himalayan...)" 
+                            style="width: 100%; background: #222; border: 1px solid #444; color: white; padding: 12px; border-radius: 8px; outline: none;">
+                        
+                        <div id="suggestions" style="position: absolute; width: 100%; background: #222; border: 1px solid #444; border-top: none; z-index: 100; display: none; border-radius: 0 0 8px 8px; max-height: 200px; overflow-y: auto;">
+                            </div>
+                    </div>
+
+                    <button type="submit" style="margin-top: 20px; background: #ff4e50; color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 700; cursor: pointer; width: 100%;">
+                        FIND MY RIDE
+                    </button>
+                </form>
+            </div>
+            <div class="cta-group" style="display: flex; gap: 20px; justify-content: center; align-items: center;">
+                <a href="{{ url_for('rental.list_bikes') }}" class="btn-secondary" style="background: transparent; color: #fff; border: 2px solid #444; padding: 18px 40px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: 0.3s;">
+                    Explore All Bikes
+                </a>
+            </div>
+        </div>
     </div>
 </section>
+
+<section style="padding: 100px 0; background: #0a0a0a; border-top: 1px solid #1a1a1a;">
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h2 style="font-size: 2.5rem; color: white; margin-bottom: 15px;">How It Works</h2>
+            <div style="width: 60px; height: 4px; background: #ff4e50; margin: 0 auto;"></div>
+        </div>
+        <div class="grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+            <div class="step-card">
+                <div class="icon-box"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                <h3>1. Browse & Book</h3>
+                <p>Choose from our premium fleet of maintained motorcycles and select your dates instantly.</p>
+            </div>
+            <div class="step-card">
+                <div class="icon-box"><i class="fa-solid fa-key"></i></div>
+                <h3>2. Pick Up Keys</h3>
+                <p>Head to your selected location, verify your details, and grab the keys to your ride.</p>
+            </div>
+            <div class="step-card">
+                <div class="icon-box"><i class="fa-solid fa-motorcycle"></i></div>
+                <h3>3. Ride Free</h3>
+                <p>Enjoy the open road with unlimited miles and our 24/7 roadside assistance guarantee.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="padding: 100px 0; background: #0f0f0f; border-top: 1px solid #1a1a1a;">
+    <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+        <div>
+            <img src="{{ url_for('static', filename='images/advanced-scooter.jpg') }}" style="width: 100%; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.5);">
+        </div>
+        <div style="color: white;">
+            <h2 style="font-size: 2.8rem; margin-bottom: 25px;">Why Choose <span style="color: #ff4e50;">Riddo?</span></h2>
+            <p style="color: #aaa; line-height: 1.8; font-size: 1.1rem; margin-bottom: 30px;">
+                Founded with a passion for the open road, Riddo is more than just a bike rental service. We believe everyone deserves access to premium motorcycles without ownership hassles.
+            </p>
+            <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <li style="color: #eee; font-weight: 500;"><i class="fa-solid fa-circle-check" style="color: #ff4e50; margin-right: 12px;"></i> Verified Bikes</li>
+                <li style="color: #eee; font-weight: 500;"><i class="fa-solid fa-circle-check" style="color: #ff4e50; margin-right: 12px;"></i> Easy Docs</li>
+                <li style="color: #eee; font-weight: 500;"><i class="fa-solid fa-circle-check" style="color: #ff4e50; margin-right: 12px;"></i> 24/7 Support</li>
+                <li style="color: #eee; font-weight: 500;"><i class="fa-solid fa-circle-check" style="color: #ff4e50; margin-right: 12px;"></i> Flexible Plans</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<footer style="background: #050505; padding: 100px 0 40px; border-top: 1px solid #1a1a1a; color: #777;">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 60px; margin-bottom: 60px;">
+            <div>
+                <h3 style="color: white; margin-bottom: 20px; font-size: 2rem; font-weight: 800;">Riddo<span style="color: #ff4e50;">.</span></h3>
+                <p style="line-height: 1.7; margin-bottom: 30px;">Premium motorcycle rental platform. Redefining how people explore, one ride at a time.</p>
+                <div style="display: flex; gap: 15px;">
+                    <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 style="color: white; margin-bottom: 25px;">Quick Links</h4>
+                <ul style="list-style: none; padding: 0; line-height: 2.8;">
+                    <li><a href="/" style="color: inherit; text-decoration: none;">Home</a></li>
+                    <li><a href="/bikes" style="color: inherit; text-decoration: none;">Bikes</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="color: white; margin-bottom: 25px;">Support</h4>
+                <ul style="list-style: none; padding: 0; line-height: 2.8;">
+                    <li><a href="#" style="color: inherit; text-decoration: none;">FAQs</a></li>
+                    <li><a href="#" style="color: inherit; text-decoration: none;">Privacy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="color: white; margin-bottom: 25px;">Contact Us</h4>
+                <p style="margin-bottom: 15px;"><i class="fa-solid fa-envelope" style="color: #ff4e50; margin-right: 12px;"></i> support@riddo.com</p>
+                <p><i class="fa-solid fa-phone" style="color: #ff4e50; margin-right: 12px;"></i> +1 (234) 567-890</p>
+            </div>
+        </div>
+        <div style="border-top: 1px solid #111; padding-top: 40px; text-align: center; font-size: 0.85rem;">
+            &copy; 2026 RIDDO RENTALS. ALL RIGHTS RESERVED.
+        </div>
+    </div>
+</footer>
+
+<div id="offerPopup" class="offer-popup">
+    <div class="offer-content">
+        <button class="close-popup" onclick="closeOffer()">&times;</button>
+        <div class="offer-tag">Limited Time</div>
+        <h3>Flat 20% OFF</h3>
+        <p>On your first weekend ride! Use code:</p>
+        <div class="promo-code">RIDDO20</div>
+        <a href="/login" class="btn-claim">Claim Now</a>
+    </div>
+</div>
+
+<style>
+/* Slider & Navigation */
+.slider-track { transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); }
+
+/* Custom Select Styling */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ff4e50%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px top 50%;
+    background-size: 12px auto;
+}
+
+/* UI Elements */
+.step-card { background: #111; padding: 50px 40px; border-radius: 24px; border: 1px solid #1a1a1a; transition: 0.4s; text-align: center; color: #fff; }
+.step-card:hover { border-color: #ff4e50; transform: translateY(-10px); background: #161616; }
+.step-card h3 { margin-bottom: 15px; font-size: 1.4rem; }
+.step-card p { color: #777; line-height: 1.6; }
+.icon-box { font-size: 2.5rem; color: #ff4e50; margin-bottom: 25px; }
+
+.social-icon { background: #111; color: #fff; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 50%; text-decoration: none; transition: 0.3s; border: 1px solid #222; }
+.social-icon:hover { background: #ff4e50; border-color: #ff4e50; transform: translateY(-5px); }
+
+.btn-main:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(255, 78, 80, 0.5); }
+.btn-secondary:hover { border-color: #fff; transform: translateY(-2px); background: rgba(255,255,255,0.05); }
+
+/* Offer Popup */
+.offer-popup {
+    position: fixed;
+    top: 100px;
+    right: -400px;
+    width: 280px;
+    z-index: 1000;
+    transition: right 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+.offer-popup.active { right: 20px; }
+.offer-content {
+    background: rgba(22, 22, 22, 0.95);
+    border: 1px solid #333;
+    border-top: 4px solid #ff4e50;
+    border-radius: 15px;
+    padding: 25px;
+    color: white;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    position: relative;
+    text-align: center;
+}
+.promo-code {
+    background: #222;
+    border: 1px dashed #ff4e50;
+    color: #ff4e50;
+    padding: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.btn-claim {
+    display: block;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+.close-popup {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+</style>
+
+<script>
+
+window.addEventListener('load', function() {
+        setTimeout(function() {
+            const popup = document.getElementById('offerPopup');
+            popup.style.display = 'block';
+        }, 2000);
+    });
+
+    function closePopup() {
+        document.getElementById('offerPopup').style.display = 'none';
+    }
+
+const searchInput = document.getElementById('bike-search');
+const suggestionsBox = document.getElementById('suggestions');
+
+searchInput.addEventListener('input', async () => {
+    const query = searchInput.value;
+    
+    if (query.length < 2) {
+        suggestionsBox.style.display = 'none';
+        return;
+    }
+
+    const response = await fetch(`/api/suggest_bikes?q=${query}`);
+    const suggestions = await response.json();
+
+    if (suggestions.length > 0) {
+        suggestionsBox.innerHTML = suggestions.map(name => 
+            `<div class="suggestion-item" style="padding: 10px; color: white; cursor: pointer; border-bottom: 1px solid #333;">${name}</div>`
+        ).join('');
+        suggestionsBox.style.display = 'block';
+    } else {
+        suggestionsBox.style.display = 'none';
+    }
+});
+
+// Handle clicking a suggestion
+suggestionsBox.addEventListener('click', (e) => {
+    if (e.target.classList.contains('suggestion-item')) {
+        searchInput.value = e.target.innerText;
+        suggestionsBox.style.display = 'none';
+    }
+});
+
+// Close suggestions when clicking outside
+document.addEventListener('click', (e) => {
+    if (e.target !== searchInput) suggestionsBox.style.display = 'none';
+});
+
+</script>
+
 {% endblock %}

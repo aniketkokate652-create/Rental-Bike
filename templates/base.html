@@ -17,14 +17,21 @@
         
         <ul class="nav-links">
         <li><a href="/">Home</a></li>
-        <li><a href="/bikes">Explore Fleet</a></li>
+        <li style="list-style: none;">
+            <a href="{{ url_for('rental.experiences') }}" style="color: #fff; text-decoration: none; font-weight: 600; padding: 10px 20px; border-radius: 50px; background: rgba(255, 78, 80, 0.1); border: 1px solid #ff4e50; transition: 0.3s;">
+                <i class="fa-solid fa-camera-retro" style="margin-right: 8px;"></i>Stories
+            </a>
+        </li>
+        <li><a href="{{ url_for('rental.list_bikes') }}">Explore Fleet</a></li>
     
-        {% if session.get('username') %}
-        <li><a href="/my-bookings">My Bookings</a></li>
-        <li><a href="/logout" class="btn btn-outline" style="padding: 8px 20px;">Logout</a></li>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('rental.my_bookings') }}">My Bookings</a>
+            <a href="{{ url_for('rental.experiences') }}">Stories</a>
+            <span>Welcome, {{ current_user.username }}</span>
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
         {% else %}
-        <li><a href="/login">Log in</a></li>
-        <li><a href="/register" class="btn btn-accent" style="padding: 8px 20px;">Sign Up</a></li>
+            <a href="{{ url_for('auth.login') }}">Login</a>
+            <a href="{{ url_for('auth.register') }}">Register</a>
         {% endif %}
         </ul>
     </div>
