@@ -9,6 +9,10 @@ from werkzeug.security import generate_password_hash
 from models import db, User
 
 app = Flask(__name__)
+# ---------------- REDIS SETUP ----------------
+# Checks Render for a REDIS_URL, falls back to localhost for VS Code
+redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379")
+redis_client = redis.Redis.from_url(redis_url)
 
 # ---------------- CONFIG ----------------
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project.db'
@@ -75,7 +79,11 @@ def home():
     return render_template("index.html")
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     # Ensure upload folder exists
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
     app.run(debug=True)
+=======
+    app.run(debug=True)
+>>>>>>> 89c94d42e50222f351969b2c613fbcdae7370fb8
