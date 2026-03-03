@@ -79,11 +79,8 @@ def home():
     return render_template("index.html")
 
 if __name__ == "__main__":
-<<<<<<< HEAD
     # Ensure upload folder exists
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
     app.run(debug=True)
-=======
-    app.run(debug=True)
->>>>>>> 89c94d42e50222f351969b2c613fbcdae7370fb8
+
