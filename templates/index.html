@@ -114,7 +114,16 @@
         </div>
     </div>
 </footer>
-
+<div id="offerPopup" class="offer-popup">
+    <div class="offer-content">
+        <button onclick="closePopup()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: #555; font-size: 1.5rem; cursor: pointer;">&times;</button>
+        <div style="background: #ff4e50; color: white; display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; margin-bottom: 15px; text-transform: uppercase;">Limited Offer</div>
+        <h3 style="color: white; margin-bottom: 10px;">FLAT 20% OFF</h3>
+        <p style="color: #bbb; font-size: 0.9rem; margin-bottom: 15px;">On your first booking! Use code:</p>
+        <div style="background: #222; border: 1px dashed #ff4e50; color: #ff4e50; padding: 10px; font-weight: 800; letter-spacing: 2px; border-radius: 8px; margin-bottom: 20px;">RIDDO20</div>
+        <a href="{{ url_for('auth.login') }}" style="display: block; background: #fff; color: #000; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: 700; text-align: center;">Claim Now</a>
+    </div>
+</div>
 <script>
     // Autofocus the search bar on load
     window.onload = function() {
@@ -149,5 +158,21 @@
     document.addEventListener('click', (e) => {
         if (e.target !== searchInput) suggestionsBox.style.display = 'none';
     });
+    // Show popup after 2 seconds
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            const popup = document.getElementById('offerPopup');
+            if (popup) {
+                popup.classList.add('active');
+            }
+        }, 2000); // 2-second delay
+    });
+
+    function closePopup() {
+        const popup = document.getElementById('offerPopup');
+        if (popup) {
+            popup.classList.remove('active');
+        }
+    }
 </script>
 {% endblock %}

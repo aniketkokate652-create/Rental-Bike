@@ -349,6 +349,31 @@ body {
     display: none; /* Controlled by JS */
   }
 }
+/* Ensure the popup is visible above everything */
+.offer-popup {
+    position: fixed;
+    top: 120px; /* Adjusted to sit below your new sticky search header */
+    right: -400px;
+    width: 300px;
+    z-index: 9999; /* Higher than the navbar and search bar */
+    transition: right 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.offer-popup.active {
+    right: 20px;
+}
+
+.offer-content {
+    background: rgba(22, 22, 22, 0.95);
+    border: 1px solid #333;
+    border-top: 4px solid #ff4e50;
+    border-radius: 15px;
+    padding: 25px;
+    color: white;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    text-align: center;
+}
 footer {
     margin-top: auto;
 }
