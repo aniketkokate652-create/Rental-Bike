@@ -1,5 +1,5 @@
 /* =========================================
-   Riddo - Unified Premium Styles (Final)
+   Riddo - Master Unified Styles (Final)
    ========================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
@@ -7,6 +7,7 @@
 :root {
   --primary: #ff4e50;      /* Riddo Red */
   --secondary: #f9d423;    /* Riddo Yellow */
+  --accent: #22c55e;       /* Success Green */
   --dark: #0f0f0f;         /* Deep Black */
   --dark-accent: #161616;  /* Card Black */
   --bg-light: #f8fafc;
@@ -14,17 +15,16 @@
   --text-muted: #aaaaaa;
   --white: #ffffff;
   --glass-bg: rgba(22, 22, 22, 0.95);
-  --glass-border: rgba(255, 255, 255, 0.1);
   --radius: 20px;
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
 }
 
 /* --- Base Reset --- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
 }
 
 body {
@@ -35,14 +35,13 @@ body {
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Keeps footer at bottom */
+  min-height: 100vh;
 }
 
-/* --- Utilities --- */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
+.container { 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 0 24px; 
 }
 
 .text-gradient {
@@ -52,7 +51,7 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* --- Navbar: Optimized for Logo Clarity --- */
+/* --- Navbar --- */
 .navbar {
   position: fixed;
   top: 0; 
@@ -63,40 +62,40 @@ body {
   padding: 15px 0;
 }
 
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.nav-container { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
 }
 
-.logo {
-  font-size: 1.8rem; /* Prominent Logo */
-  font-weight: 800;
-  color: #fff;
-  text-decoration: none;
+.logo { 
+  font-size: 1.8rem; 
+  font-weight: 800; 
+  color: #fff; 
+  text-decoration: none; 
   letter-spacing: -1px;
 }
 
 .logo span { color: var(--primary); }
 
-.nav-links {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-  align-items: center;
+.nav-links { 
+  display: flex; 
+  gap: 20px; 
+  list-style: none; 
+  align-items: center; 
 }
 
-.nav-links a {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-weight: 600;
+.nav-links a { 
+  color: var(--text-muted); 
+  text-decoration: none; 
+  font-weight: 600; 
   font-size: 0.95rem;
-  transition: var(--transition);
+  transition: var(--transition); 
 }
 
 .nav-links a:hover { color: var(--primary); }
 
-/* --- Hero Section (Home) --- */
+/* --- Hero Section --- */
 .hero-section {
   padding: 120px 0 80px;
   background: var(--dark);
@@ -125,7 +124,46 @@ body {
   transition: transform 0.5s ease;
 }
 
-/* --- Bikes Page / Fleet Grid --- */
+/* --- Dashboard & Sidebar Layout --- */
+.dashboard-layout { 
+  display: flex; 
+  min-height: 100vh; 
+  padding-top: 70px; 
+}
+
+.sidebar {
+  width: 280px;
+  background: #000;
+  border-right: 1px solid #222;
+  padding: 40px 0;
+  position: sticky;
+  top: 70px;
+  height: calc(100vh - 70px);
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.sidebar-link.active, .sidebar-link:hover {
+  background: rgba(255, 78, 80, 0.1);
+  color: var(--primary);
+  border-right: 3px solid var(--primary);
+}
+
+.dashboard-content { 
+  flex: 1; 
+  padding: 40px; 
+  background: var(--dark); 
+}
+
+/* --- Fleet & Cards Grid --- */
 .fleet-header {
   margin-top: 140px; 
   margin-bottom: 50px;
@@ -142,10 +180,9 @@ body {
 }
 
 .glass-card {
-  background: var(--white);
+  background: var(--dark-accent);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid #333;
   transition: var(--transition);
   display: flex;
   flex-direction: column;
@@ -153,7 +190,12 @@ body {
   overflow: hidden;
 }
 
-.glass-card:hover { transform: translateY(-5px); }
+/* Specific styling for white-themed bike cards on fleet page */
+.bikes-page .glass-card {
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-lg);
+}
 
 .card-image-wrapper {
   position: relative;
@@ -169,18 +211,90 @@ body {
   object-fit: cover;
 }
 
+.stat-card {
+  background: #1a1a1a;
+  padding: 24px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+/* --- Auth & Forms --- */
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+}
+
+.auth-card {
+  background: #161616;
+  padding: 40px;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 450px;
+  border: 1px solid #333;
+}
+
+.form-group { 
+  position: relative; 
+  margin-bottom: 24px; 
+}
+
+.form-control {
+  width: 100%;
+  padding: 14px 16px;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 12px;
+  color: white;
+  outline: none;
+  transition: 0.3s;
+}
+
+.form-control:focus { 
+  border-color: var(--primary); 
+}
+
+/* --- Buttons --- */
+.btn {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+}
+
+.btn-accent { background: var(--primary); color: white; }
+.btn-outline { background: transparent; border: 1px solid #444; color: white; }
+
 .btn-rent-now {
-  background: linear-gradient(135deg, #ff4e50 0%, #f9d423 100%);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white !important;
-  text-transform: uppercase;
-  font-weight: 800;
+  width: 100%;
   padding: 14px;
   border-radius: 12px;
-  width: 100%;
-  cursor: pointer;
   border: none;
-  transition: var(--transition);
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
   box-shadow: 0 4px 15px rgba(255, 78, 80, 0.3);
+  transition: var(--transition);
 }
 
 .btn-rent-now:hover {
@@ -195,11 +309,13 @@ body {
   top: 120px;
   right: -400px;
   width: 300px;
-  z-index: 9999; /* Above sticky headers */
+  z-index: 9999;
   transition: right 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-.offer-popup.active { right: 20px; }
+.offer-popup.active { 
+  right: 20px; 
+}
 
 .offer-content {
   background: rgba(22, 22, 22, 0.95);
@@ -216,41 +332,55 @@ body {
 
 footer { margin-top: auto; }
 
-/* --- MOBILE SPECIFIC CHANGES --- */
+/* --- GLOBAL MOBILE RESPONSIVENESS --- */
 @media (max-width: 768px) {
-  /* Fix Logo and Nav Overlap */
-  .nav-container {
+  /* Navbar & Logo Fix */
+  .nav-container { 
     flex-direction: column; 
-    gap: 12px;
-    padding: 10px 0;
+    gap: 12px; 
+    padding: 10px 0; 
   }
-
+  
+  .nav-links { 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 12px; 
+  }
+  
+  .nav-links a { font-size: 0.8rem; }
   .logo { font-size: 1.6rem; }
 
-  .nav-links {
-    flex-wrap: wrap; 
-    justify-content: center;
-    gap: 12px;
+  /* Dashboard & Sidebar Mobile */
+  .dashboard-layout { flex-direction: column; }
+  
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+    border-right: none;
+    border-bottom: 1px solid #222;
+    padding: 20px 0;
   }
+  
+  .dashboard-content { padding: 20px; }
 
-  .nav-links a { font-size: 0.8rem; }
-
-  /* Search Visibility Fix */
+  /* Search Bar Visibility Fix */
   .search-header-mobile {
     height: auto !important;
     min-height: 80px;
     padding: 15px 10px !important;
     position: sticky;
-    top: 100px; /* Adjusted for stacked nav */
+    top: 100px; /* Adjusted for stacked nav height */
+  }
+  
+  .search-form-mobile { 
+    flex-direction: column !important; 
+    gap: 12px !important; 
+    width: 100% !important; 
   }
 
-  .search-form-mobile {
-    flex-direction: column !important;
-    gap: 12px !important;
-    width: 100% !important;
-  }
-
-  /* Popup Mobile Fix */
+  /* Popup Touch & Cancellation Fix */
   .offer-popup {
     z-index: 10000 !important;
     width: 90%;
@@ -261,21 +391,20 @@ footer { margin-top: auto; }
     opacity: 0;
     pointer-events: none;
   }
-
-  .offer-popup.active {
-    opacity: 1;
-    pointer-events: auto;
-    right: 5% !important;
+  
+  .offer-popup.active { 
+    opacity: 1; 
+    pointer-events: auto; 
   }
-
-  /* Large Close Button for Thumbs */
-  .offer-content button {
-    padding: 15px;
-    font-size: 1.8rem;
+  
+  /* Increased hit-area for close button on mobile */
+  .offer-content button { 
+    padding: 15px; 
+    font-size: 1.8rem; 
     position: absolute;
     top: 5px;
     right: 5px;
-    z-index: 10001 !important;
+    z-index: 10001 !important; 
   }
 
   .hero-bezel { height: 350px; }
