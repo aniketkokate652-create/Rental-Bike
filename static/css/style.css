@@ -221,12 +221,15 @@ footer { margin-top: auto; }
     gap: 10px !important;
   }
 
+  .offer-popup {
+      z-index: 10000 !important; /* Higher than sticky nav and search */
+    }
   .nav-container {
     flex-direction: column;
     gap: 10px;
     padding: 10px 0;
   }
-
+  
   .nav-links {
     flex-wrap: wrap;
     justify-content: center;

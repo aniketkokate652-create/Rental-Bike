@@ -30,7 +30,8 @@ def register():
         )
         db.session.add(new_user)
         db.session.commit()
-        
+        username = request.form['username']
+        password
         flash('Registration successful! Please login.', 'success')
         return redirect(url_for('auth.login'))
         
@@ -39,8 +40,7 @@ def register():
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+         = request.form['password']
 
         user = User.query.filter_by(username=username).first()
 

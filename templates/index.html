@@ -173,5 +173,16 @@
             popup.classList.remove('active');
         }
     }
+    function closePopup() {
+    const popup = document.getElementById('offerPopup');
+    if (popup) {
+        // Remove the active class to trigger the CSS transition
+        popup.classList.remove('active');
+        // Optional: Hide display after transition to ensure it doesn't block clicks
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 600); 
+    }
+}
 </script>
 {% endblock %}
