@@ -18,8 +18,9 @@
         <ul class="nav-links">
         <li><a href="/">Home</a></li>
         <li style="list-style: none;">
-            <a href="{{ url_for('rental.experiences') }}" style="color: #fff; text-decoration: none; font-weight: 600; padding: 10px 20px; border-radius: 50px; background: rgba(255, 78, 80, 0.1); border: 1px solid #ff4e50; transition: 0.3s;">
-                <i class="fa-solid fa-camera-retro" style="margin-right: 8px;"></i>Stories
+            <a href="{{ url_for('rental.experiences') }}" class="stories-btn" style="color: #fff; text-decoration: none; font-weight: 600; padding: 8px 12px; border-radius: 50px; background: rgba(255, 78, 80, 0.1); border: 1px solid #ff4e50; display: flex; align-items: center; gap: 5px;">
+                <i class="fa-solid fa-camera-retro"></i>
+                <span>Stories</span>
             </a>
         </li>
         <li><a href="{{ url_for('rental.list_bikes') }}">Explore Fleet</a></li>
