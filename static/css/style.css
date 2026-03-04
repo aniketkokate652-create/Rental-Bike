@@ -35,7 +35,7 @@ body {
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100vh; /* Keeps footer at bottom */
 }
 
 /* --- Utilities --- */
@@ -52,11 +52,12 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* --- Navbar --- */
+/* --- Navbar: Optimized for Logo Clarity --- */
 .navbar {
   position: fixed;
-  top: 0; width: 100%;
-  background: var(--dark);
+  top: 0; 
+  width: 100%;
+  background: #000;
   border-bottom: 1px solid #222;
   z-index: 1050;
   padding: 15px 0;
@@ -69,10 +70,11 @@ body {
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.8rem; /* Prominent Logo */
   font-weight: 800;
-  color: var(--white);
+  color: #fff;
   text-decoration: none;
+  letter-spacing: -1px;
 }
 
 .logo span { color: var(--primary); }
@@ -87,25 +89,18 @@ body {
 .nav-links a {
   color: var(--text-muted);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.95rem;
   transition: var(--transition);
 }
 
 .nav-links a:hover { color: var(--primary); }
 
-/* --- Hero Section --- */
+/* --- Hero Section (Home) --- */
 .hero-section {
   padding: 120px 0 80px;
   background: var(--dark);
   text-align: center;
-}
-
-.hero-title {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-weight: 800;
-  letter-spacing: -2px;
-  line-height: 1.1;
-  margin-bottom: 20px;
 }
 
 .hero-bezel {
@@ -117,7 +112,7 @@ body {
   position: relative; 
   width: 100%; 
   max-width: 1300px; 
-  height: 500px;
+  height: 500px; /* Locked desktop height */
   margin: 0 auto;
 }
 
@@ -130,7 +125,15 @@ body {
   transition: transform 0.5s ease;
 }
 
-/* --- Grid & Cards --- */
+/* --- Bikes Page / Fleet Grid --- */
+.fleet-header {
+  margin-top: 140px; 
+  margin-bottom: 50px;
+  padding: 0 15px;
+  border-left: 6px solid var(--primary);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
 .grid-3 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -150,20 +153,20 @@ body {
   overflow: hidden;
 }
 
+.glass-card:hover { transform: translateY(-5px); }
+
 .card-image-wrapper {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 240px;
   background: #e2e8f0;
   overflow: hidden;
 }
 
-.fleet-header {
-  margin-top: 140px;
-  margin-bottom: 50px;
-  padding: 0 15px;
-  border-left: 6px solid #ff4e50;
-  animation: fadeIn 0.8s ease-in-out;
+.card-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .btn-rent-now {
@@ -171,13 +174,19 @@ body {
   color: white !important;
   text-transform: uppercase;
   font-weight: 800;
-  letter-spacing: 1px;
-  border: none;
   padding: 14px;
   border-radius: 12px;
   width: 100%;
   cursor: pointer;
-  transition: all 0.3s ease;
+  border: none;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(255, 78, 80, 0.3);
+}
+
+.btn-rent-now:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 78, 80, 0.5);
+  filter: brightness(1.1);
 }
 
 /* --- Offer Popup --- */
@@ -186,7 +195,7 @@ body {
   top: 120px;
   right: -400px;
   width: 300px;
-  z-index: 9999;
+  z-index: 9999; /* Above sticky headers */
   transition: right 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
@@ -195,12 +204,13 @@ body {
 .offer-content {
   background: rgba(22, 22, 22, 0.95);
   border: 1px solid #333;
-  border-top: 4px solid #ff4e50;
+  border-top: 4px solid var(--primary);
   border-radius: 15px;
   padding: 25px;
   color: white;
   backdrop-filter: blur(10px);
   text-align: center;
+  position: relative;
   box-shadow: 0 20px 40px rgba(0,0,0,0.6);
 }
 
@@ -208,48 +218,67 @@ footer { margin-top: auto; }
 
 /* --- MOBILE SPECIFIC CHANGES --- */
 @media (max-width: 768px) {
-  /* Fix Search Header visibility */
+  /* Fix Logo and Nav Overlap */
+  .nav-container {
+    flex-direction: column; 
+    gap: 12px;
+    padding: 10px 0;
+  }
+
+  .logo { font-size: 1.6rem; }
+
+  .nav-links {
+    flex-wrap: wrap; 
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .nav-links a { font-size: 0.8rem; }
+
+  /* Search Visibility Fix */
   .search-header-mobile {
     height: auto !important;
     min-height: 80px;
-    padding: 15px 0 !important;
+    padding: 15px 10px !important;
+    position: sticky;
+    top: 100px; /* Adjusted for stacked nav */
   }
 
-  /* Fix Search Form wrapping */
   .search-form-mobile {
     flex-direction: column !important;
-    gap: 10px !important;
+    gap: 12px !important;
+    width: 100% !important;
   }
 
+  /* Popup Mobile Fix */
   .offer-popup {
-      z-index: 10000 !important; /* Higher than sticky nav and search */
-    }
-  .nav-container {
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px 0;
-  }
-  
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
+    z-index: 10000 !important;
+    width: 90%;
+    left: 5%;
+    right: 5% !important;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    pointer-events: none;
   }
 
-  .nav-links a {
-    font-size: 0.8rem;
-    padding: 5px;
+  .offer-popup.active {
+    opacity: 1;
+    pointer-events: auto;
+    right: 5% !important;
+  }
+
+  /* Large Close Button for Thumbs */
+  .offer-content button {
+    padding: 15px;
+    font-size: 1.8rem;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 10001 !important;
   }
 
   .hero-bezel { height: 350px; }
-  
-  .offer-popup {
-    width: 90%;
-    left: 5%;
-    right: 5%;
-    top: 50%;
-    transform: translateY(-50%);
-  }
 }
 
 @keyframes fadeIn {

@@ -8,7 +8,6 @@
                 <i class="fa-solid fa-magnifying-glass" style="color: #ff4e50;"></i>
                 <input type="text" id="bike-search" name="q" autocomplete="off" autofocus placeholder="Start typing to find your ride..." 
                     style="width: 100%; background: transparent; border: none; color: white; outline: none; padding: 12px; font-size: 0.95rem;">
-                
                 <div id="suggestions" style="position: absolute; top: 100%; left: 0; width: 100%; background: #222; border: 1px solid #444; z-index: 100; display: none; border-radius: 0 0 12px 12px; max-height: 200px; overflow-y: auto;"></div>
             </div>
             <button type="submit" class="btn btn-primary" style="padding: 10px 25px; border-radius: 10px; white-space: nowrap; font-weight: 700;">
@@ -171,18 +170,21 @@
         const popup = document.getElementById('offerPopup');
         if (popup) {
             popup.classList.remove('active');
+            // Remove from view after animation to ensure it doesn't block touch
+            setTimeout(() => { popup.style.display = 'none'; }, 600);
         }
     }
-    function closePopup() {
-    const popup = document.getElementById('offerPopup');
-    if (popup) {
-        // Remove the active class to trigger the CSS transition
-        popup.classList.remove('active');
-        // Optional: Hide display after transition to ensure it doesn't block clicks
-        setTimeout(() => {
-            popup.style.display = 'none';
-        }, 600); 
-    }
-}
+
+    // Autofocus
+    window.onload = function() {
+        document.getElementById('bike-search').focus();
+    };
+
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            const popup = document.getElementById('offerPopup');
+            if (popup) { popup.classList.add('active'); }
+        }, 2000);
+    });
 </script>
 {% endblock %}

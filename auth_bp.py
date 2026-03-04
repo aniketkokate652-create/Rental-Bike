@@ -40,15 +40,14 @@ def register():
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-         = request.form['password']
+        # FIX: Define both variables before using them
+        username = request.form.get('username')
+        password = request.form.get('password')
 
         user = User.query.filter_by(username=username).first()
 
         if user and check_password_hash(user.password, password):
-            # This is the missing piece!
             login_user(user) 
-            
-            # Keep these if you use them in templates, but login_user handles the rest
             session['is_admin'] = user.is_admin
 
             if user.is_admin:
