@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div style="height: 80px; background: #0f0f0f; display: flex; align-items: center; border-bottom: 1px solid #222; position: sticky; top: 70px; z-index: 1000;">
+<div class="search-header-mobile" style="min-height: 80px; background: #0f0f0f; display: flex; align-items: center; border-bottom: 1px solid #222; position: sticky; top: 70px; z-index: 1000;">
     <div class="container" style="width: 100%;">
-        <form action="{{ url_for('rental.list_bikes') }}" method="GET" style="display: flex; align-items: center; gap: 15px; max-width: 800px; margin: 0 auto;">
-            <div style="flex: 1; position: relative; display: flex; align-items: center; background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 0 15px;">
+        <form action="{{ url_for('rental.list_bikes') }}" method="GET" class="search-form-mobile" style="display: flex; align-items: center; gap: 15px; max-width: 800px; margin: 0 auto;">
+            <div style="flex: 1; position: relative; display: flex; align-items: center; background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 0 15px; width: 100%;">
                 <i class="fa-solid fa-magnifying-glass" style="color: #ff4e50;"></i>
                 <input type="text" id="bike-search" name="q" autocomplete="off" autofocus placeholder="Start typing to find your ride..." 
                     style="width: 100%; background: transparent; border: none; color: white; outline: none; padding: 12px; font-size: 0.95rem;">
@@ -114,9 +114,10 @@
         </div>
     </div>
 </footer>
+
 <div id="offerPopup" class="offer-popup">
     <div class="offer-content">
-        <button onclick="closePopup()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: #555; font-size: 1.5rem; cursor: pointer;">&times;</button>
+        <button onclick="closePopup()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: #666; cursor: pointer;">&times;</button>
         <div style="background: #ff4e50; color: white; display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; margin-bottom: 15px; text-transform: uppercase;">Limited Offer</div>
         <h3 style="color: white; margin-bottom: 10px;">FLAT 20% OFF</h3>
         <p style="color: #bbb; font-size: 0.9rem; margin-bottom: 15px;">On your first booking! Use code:</p>
@@ -124,13 +125,12 @@
         <a href="{{ url_for('auth.login') }}" style="display: block; background: #fff; color: #000; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: 700; text-align: center;">Claim Now</a>
     </div>
 </div>
+
 <script>
-    // Autofocus the search bar on load
     window.onload = function() {
         document.getElementById('bike-search').focus();
     };
 
-    // Suggestions logic
     const searchInput = document.getElementById('bike-search');
     const suggestionsBox = document.getElementById('suggestions');
 
@@ -154,18 +154,17 @@
         }
     });
 
-    // Close suggestions when clicking outside
     document.addEventListener('click', (e) => {
         if (e.target !== searchInput) suggestionsBox.style.display = 'none';
     });
-    // Show popup after 2 seconds
+
     window.addEventListener('load', function() {
         setTimeout(function() {
             const popup = document.getElementById('offerPopup');
             if (popup) {
                 popup.classList.add('active');
             }
-        }, 2000); // 2-second delay
+        }, 2000);
     });
 
     function closePopup() {

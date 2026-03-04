@@ -1,5 +1,5 @@
 /* =========================================
-   Riddo - Unified Premium Styles (Fixed Mobile)
+   Riddo - Unified Premium Styles (Final)
    ========================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
@@ -9,7 +9,7 @@
   --secondary: #f9d423;    /* Riddo Yellow */
   --dark: #0f0f0f;         /* Deep Black */
   --dark-accent: #161616;  /* Card Black */
-  --bg-light: #f8fafc;     /* Light background for internal pages */
+  --bg-light: #f8fafc;
   --text-main: #ffffff;
   --text-muted: #aaaaaa;
   --white: #ffffff;
@@ -29,13 +29,13 @@
 
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: var(--dark); /* Default to dark for landing page */
+  background-color: var(--dark);
   color: var(--text-main);
   line-height: 1.6;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Pushes footer to bottom */
+  min-height: 100vh;
 }
 
 /* --- Utilities --- */
@@ -130,46 +130,7 @@ body {
   transition: transform 0.5s ease;
 }
 
-/* --- Search Bar --- */
-.search-container {
-  width: 100%; 
-  max-width: 1100px; 
-  background: #161616; 
-  padding: 30px; 
-  border-radius: 20px; 
-  border: 1px solid #333; 
-  position: relative;
-  margin-top: -60px;
-  z-index: 10;
-}
-
-.search-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  background: #1a1a1a;
-  padding: 8px 15px;
-  border-radius: 16px;
-  border: 2px solid transparent;
-  transition: var(--transition);
-}
-
-.search-wrapper:focus-within {
-  border-color: var(--primary);
-  box-shadow: 0 0 15px rgba(255, 78, 80, 0.3);
-}
-
-.search-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: white;
-  padding: 12px;
-  font-size: 1rem;
-  outline: none;
-}
-
-/* --- Bike Page Grid & Cards --- */
+/* --- Grid & Cards --- */
 .grid-3 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -219,7 +180,7 @@ body {
   transition: all 0.3s ease;
 }
 
-/* --- Popups & Footer --- */
+/* --- Offer Popup --- */
 .offer-popup {
   position: fixed;
   top: 120px;
@@ -240,20 +201,34 @@ body {
   color: white;
   backdrop-filter: blur(10px);
   text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
 }
 
 footer { margin-top: auto; }
 
-/* --- MOBILE SPECIFIC CHANGES (The Fix) --- */
+/* --- MOBILE SPECIFIC CHANGES --- */
 @media (max-width: 768px) {
+  /* Fix Search Header visibility */
+  .search-header-mobile {
+    height: auto !important;
+    min-height: 80px;
+    padding: 15px 0 !important;
+  }
+
+  /* Fix Search Form wrapping */
+  .search-form-mobile {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
   .nav-container {
-    flex-direction: column; /* Stacks Logo above links */
+    flex-direction: column;
     gap: 10px;
     padding: 10px 0;
   }
 
   .nav-links {
-    flex-wrap: wrap; /* Allows links to flow to a new line instead of overlapping */
+    flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
   }
@@ -263,21 +238,14 @@ footer { margin-top: auto; }
     padding: 5px;
   }
 
-  .hero-bezel { height: 350px; } /* Smaller image on mobile */
+  .hero-bezel { height: 350px; }
   
-  .search-container {
-    margin-top: 20px;
-    width: 95%;
-    padding: 15px;
-  }
-
   .offer-popup {
     width: 90%;
     left: 5%;
     right: 5%;
     top: 50%;
     transform: translateY(-50%);
-    display: none; /* Managed by JS */
   }
 }
 
